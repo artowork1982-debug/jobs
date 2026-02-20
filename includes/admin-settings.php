@@ -69,6 +69,7 @@ function map_render_settings_page() {
             'link_hover_color'       => sanitize_hex_color($_POST['link_hover_color']),
         );
         update_option('my_agg_settings', $new_settings);
+        map_update_cron_schedule($new_settings['update_frequency']);
         echo '<div class="notice notice-success is-dismissible"><p>Asetukset tallennettu!</p></div>';
     }
 

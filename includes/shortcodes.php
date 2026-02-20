@@ -16,6 +16,33 @@ function map_jobs_list_shortcode($atts) {
     // Hae asetukset
     $opts = my_agg_get_settings();
 
+    // Polylang: tunnista kieli renderöintihetkellä
+    $lang_code = 'fi';
+    if (function_exists('pll_current_language')) {
+        $current = pll_current_language();
+        if ($current) {
+            $lang_code = $current;
+        }
+    }
+
+    // Kielikohtainen label hakuajan päättymiselle
+    switch ($lang_code) {
+        case 'fi':
+            $end_label = 'Hakuaika päättyy';
+            break;
+        case 'en':
+            $end_label = 'Application ends';
+            break;
+        case 'sv':
+            $end_label = 'Ansökan slutar';
+            break;
+        case 'it':
+            $end_label = "L'applicazione termina";
+            break;
+        default:
+            $end_label = 'Application ends';
+    }
+
     // Lyhytkoodin attribuuttien oletukset
     $args = shortcode_atts(array(
         'import' => 'no', // Oletus: ei pakotettua tuontia
@@ -39,11 +66,24 @@ function map_jobs_list_shortcode($atts) {
 
     // Jos ei löydy yhtään työpaikkaa
     if (!$query->have_posts()) {
-        return '<p>Ei työpaikkoja saatavilla.</p>';
+        switch ($lang_code) {
+            case 'fi':
+                $no_jobs_text = 'Ei työpaikkoja saatavilla.';
+                break;
+            case 'sv':
+                $no_jobs_text = 'Inga lediga jobb tillgängliga.';
+                break;
+            case 'it':
+                $no_jobs_text = 'Nessun lavoro disponibile.';
+                break;
+            default:
+                $no_jobs_text = 'No jobs available.';
+        }
+        return '<p>' . esc_html($no_jobs_text) . '</p>';
     }
 
     // Dynaaminen inline-CSS, jotta värit päivittyvät asetuksista
-    $output = "<style>
+    $output = '<style>
         .my-job-list { 
             list-style: none; 
             padding: 0; 
@@ -55,22 +95,22 @@ function map_jobs_list_shortcode($atts) {
             border-bottom: 1px solid rgba(0, 0, 0, 0.25); 
         }
         .my-job-list a { 
-            color: {$opts['link_color']}; 
+            color: ' . esc_attr($opts['link_color']) . '; 
             text-decoration: none; 
             font-weight: bold; 
             font-size: 18px; 
         }
         .my-job-list a:hover { 
-            color: {$opts['link_hover_color']}; 
+            color: ' . esc_attr($opts['link_hover_color']) . '; 
             text-decoration: none; 
         }
         .my-job-list .description { 
-            color: {$opts['description_text_color']}; 
+            color: ' . esc_attr($opts['description_text_color']) . '; 
             font-size: 0.8rem; 
             font-weight: 300; 
             margin-top: 5px; 
         }
-    </style>";
+    </style>';
 
     $output .= '<ul class="my-job-list">';
     while ($query->have_posts()) {
@@ -89,7 +129,7 @@ function map_jobs_list_shortcode($atts) {
         }
 
         if ($excerpt) {
-            $output .= '<div class="description">' . esc_html($excerpt) . '</div>';
+            $output .= '<div class="description">' . esc_html($end_label . ': ' . $excerpt) . '</div>';
         }
 
         $output .= '</li>';
