@@ -254,7 +254,12 @@ function map_render_settings_page() {
                 </tr>
                 <tr>
                     <td><code>[my_jobs_by_country]</code></td>
-                    <td>Maakohtainen ryhmittely (Suomi, Ruotsi, Kreikka, Italia) moderneilla korteilla + avoin hakemus -banneri lopussa.</td>
+                    <td>
+                        Maakohtainen ryhmittely (Suomi, Ruotsi, Kreikka, Italia) moderneilla korteilla + avoin hakemus -banneri lopussa.<br>
+                        <code>[my_jobs_by_country]</code> → Tumma teema (oletus)<br>
+                        <code>[my_jobs_by_country theme="dark"]</code> → Tumma teema<br>
+                        <code>[my_jobs_by_country theme="light"]</code> → Vaalea teema
+                    </td>
                 </tr>
             </tbody>
         </table>

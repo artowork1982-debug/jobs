@@ -210,7 +210,13 @@ function map_jobs_by_country_shortcode($atts) {
     );
     $t = isset($texts[$lang_code]) ? $texts[$lang_code] : $texts['en'];
 
-    $output = '<div class="map-jobs-by-country">';
+    // Shortcode attribuutit
+    $args = shortcode_atts(array(
+        'theme' => 'dark', // Oletus: tumma teema
+    ), $atts);
+
+    $theme_class = ($args['theme'] === 'light') ? 'map-theme-light' : 'map-theme-dark';
+    $output = '<div class="map-jobs-by-country ' . esc_attr($theme_class) . '">';
 
     foreach ($countries as $code => $country_data) {
         // Maan nimi nykyisellä kielellä
