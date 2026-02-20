@@ -2,7 +2,7 @@
 /**
  * Plugin Name: My Aggregator Plugin
  * Description: RSS-syötteen synkronointi ja työpaikkojen hallinta. Sisältää REST API:n, Gutenberg-blokin, Schema.org-merkinnät ja WP-CLI-tuen.
- * Version: 3.1.1
+ * Version: 3.1.2
  * Author: Arto Huhta
  * Text Domain: my-aggregator-plugin
  * Requires at least: 5.8
