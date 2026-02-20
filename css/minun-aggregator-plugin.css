@@ -30,17 +30,18 @@
 /* === Maakohtainen listaus === */
 
 .map-jobs-by-country {
-    --map-primary: #2563eb;
-    --map-primary-hover: #1d4ed8;
-    --map-border: #e5e7eb;
-    --map-bg-card: #ffffff;
-    --map-bg-empty: #f9fafb;
-    --map-bg-cta: linear-gradient(135deg, #1e3a5f 0%, #2563eb 100%);
-    --map-text: #1f2937;
-    --map-text-muted: #6b7280;
+    /* Tapojärvi brändivärit – tumma teema */
+    --map-primary: #FEE000;
+    --map-primary-hover: #FEC300;
+    --map-border: rgba(255, 255, 255, 0.12);
+    --map-bg-card: rgba(255, 255, 255, 0.06);
+    --map-bg-empty: rgba(255, 255, 255, 0.04);
+    --map-bg-cta: linear-gradient(135deg, #fafafa 0%, #f3f4f6 100%);
+    --map-text: #ffffff;
+    --map-text-muted: rgba(255, 255, 255, 0.6);
     --map-radius: 12px;
-    --map-shadow: 0 1px 3px rgba(0,0,0,0.1);
-    --map-shadow-hover: 0 10px 25px rgba(0,0,0,0.12);
+    --map-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    --map-shadow-hover: 0 10px 25px rgba(0, 0, 0, 0.4);
     max-width: 900px;
     margin: 0 auto;
     font-family: inherit;
@@ -66,7 +67,7 @@
     gap: 0.5rem;
     font-size: 1.35rem;
     font-weight: 700;
-    color: var(--map-text);
+    color: #ffffff !important;
     margin: 0;
     padding: 0;
 }
@@ -90,15 +91,16 @@
 
 .map-country-count {
     font-size: 0.85rem;
-    color: var(--map-text-muted);
+    color: var(--map-primary);
     font-weight: 500;
-    background: var(--map-bg-empty);
+    background: rgba(254, 224, 0, 0.1);
     padding: 0.25rem 0.75rem;
     border-radius: 999px;
+    border: 1px solid rgba(254, 224, 0, 0.2);
 }
 
 .map-country-empty {
-    color: var(--map-text-muted);
+    color: #ffffff;
     font-style: italic;
     padding: 1rem 0;
     margin: 0;
@@ -182,9 +184,10 @@
     font-size: 0.75rem;
     font-weight: 500;
     color: var(--map-primary);
-    background: rgba(37, 99, 235, 0.08);
+    background: rgba(254, 224, 0, 0.1);
     padding: 0.2rem 0.6rem;
     border-radius: 999px;
+    border: 1px solid rgba(254, 224, 0, 0.2);
 }
 
 .map-job-card__action {
@@ -198,7 +201,7 @@
     gap: 0.4rem;
     padding: 0.6rem 1.2rem;
     background: var(--map-primary);
-    color: #fff !important;
+    color: #000000 !important;
     border-radius: 8px;
     font-size: 0.85rem;
     font-weight: 600;
@@ -210,7 +213,7 @@
 .map-job-card__apply-btn:hover {
     background: var(--map-primary-hover);
     transform: scale(1.03);
-    color: #fff !important;
+    color: #000000 !important;
     text-decoration: none !important;
 }
 
@@ -251,14 +254,14 @@
 .map-cta-banner__title {
     font-size: 1.4rem;
     font-weight: 700;
-    color: #ffffff;
+    color: #000000;
     margin: 0 0 0.5rem 0;
     padding: 0;
 }
 
 .map-cta-banner__text {
     font-size: 0.95rem;
-    color: rgba(255, 255, 255, 0.85);
+    color: #000000;
     margin: 0 0 1.5rem 0;
     line-height: 1.5;
 }
@@ -268,8 +271,8 @@
     align-items: center;
     gap: 0.5rem;
     padding: 0.85rem 2rem;
-    background: #ffffff;
-    color: #1e3a5f !important;
+    background: #000000;
+    color: #ffffff !important;
     border-radius: 8px;
     font-size: 1rem;
     font-weight: 700;
@@ -281,7 +284,7 @@
 .map-cta-banner__button:hover {
     transform: translateY(-2px);
     box-shadow: 0 6px 20px rgba(0,0,0,0.25);
-    color: #1e3a5f !important;
+    color: #ffffff !important;
     text-decoration: none !important;
 }
 
@@ -324,6 +327,6 @@
 /* Focus-tilat saavutettavuutta varten */
 .map-job-card__apply-btn:focus-visible,
 .map-cta-banner__button:focus-visible {
-    outline: 3px solid #60a5fa;
+    outline: 3px solid var(--map-primary);
     outline-offset: 2px;
 }
