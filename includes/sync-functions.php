@@ -4,6 +4,28 @@ if (!defined('ABSPATH')) {
 }
 
 /**
+ * Muuntaa Laura-syötteen maan nimen maakoodiksi.
+ *
+ * @param string $country_name Maan nimi Laura-syötteestä.
+ * @return string Maakoodi ('fi', 'se', 'gr', 'it').
+ */
+function map_country_name_to_code($country_name) {
+    $map = array(
+        'suomi'   => 'fi',
+        'finland' => 'fi',
+        'ruotsi'  => 'se',
+        'sweden'  => 'se',
+        'sverige' => 'se',
+        'kreikka' => 'gr',
+        'greece'  => 'gr',
+        'italia'  => 'it',
+        'italy'   => 'it',
+    );
+    $lower = mb_strtolower(trim($country_name), 'UTF-8');
+    return isset($map[$lower]) ? $map[$lower] : 'fi'; // Oletus: Suomi
+}
+
+/**
  * Synkronointifunktio: hakee RSS-syötteen ja päivittää kohteet.
  *
  * @return array Lisättyjen, poistettujen ja päivitettyjen tiedot.
@@ -78,6 +100,12 @@ function map_sync_feed() {
     $updated = array();
     $current_feed_links = array();
 
+    // Laura-namespacen URI
+    $laura_ns = 'https://tapojarvi.rekrytointi.com/#';
+
+    // Avoin hakemus -URL:t talteen ennen suodatusta
+    $open_application_urls = array();
+
     foreach ($feed_items as $item) {
         $title  = $item->get_title();
         $desc   = $item->get_content();
@@ -88,12 +116,41 @@ function map_sync_feed() {
         foreach ($forbidden_titles as $bad_title) {
             if (!empty($bad_title) && stripos($title, $bad_title) !== false) {
                 $skip = true;
+                // Poimi avoin hakemus -lomake URL
+                $form_tag_skip = $item->get_item_tags($laura_ns, 'form');
+                $form_url_skip = (!empty($form_tag_skip[0]['data'])) ? trim($form_tag_skip[0]['data']) : '';
+                if (!empty($form_url_skip)) {
+                    $open_application_urls[] = $form_url_skip;
+                }
                 break;
             }
         }
         if ($skip) {
             continue;
         }
+
+        // Laura-namespacen kenttien lukeminen
+        $country_tag  = $item->get_item_tags($laura_ns, 'common_job_country');
+        $country_name = (!empty($country_tag[0]['data'])) ? trim($country_tag[0]['data']) : '';
+        $country_code = map_country_name_to_code($country_name);
+
+        $city_tag = $item->get_item_tags($laura_ns, 'common_job_city');
+        $city     = (!empty($city_tag[0]['data'])) ? trim($city_tag[0]['data']) : '';
+
+        $jobtype_tag = $item->get_item_tags($laura_ns, 'common_type');
+        $jobtype     = (!empty($jobtype_tag[0]['data'])) ? trim($jobtype_tag[0]['data']) : '';
+
+        $worktime_tag = $item->get_item_tags($laura_ns, 'common_worktime');
+        $worktime     = (!empty($worktime_tag[0]['data'])) ? trim($worktime_tag[0]['data']) : '';
+
+        $category_tag = $item->get_item_tags($laura_ns, 'common_category');
+        $category     = (!empty($category_tag[0]['data'])) ? trim($category_tag[0]['data']) : '';
+
+        $form_tag = $item->get_item_tags($laura_ns, 'form');
+        $form_url = (!empty($form_tag[0]['data'])) ? trim($form_tag[0]['data']) : '';
+
+        $enddate_tag = $item->get_item_tags($laura_ns, 'enddate');
+        $enddate     = (!empty($enddate_tag[0]['data'])) ? trim($enddate_tag[0]['data']) : '';
 
         $current_feed_links[] = $link;
 
@@ -126,8 +183,18 @@ function map_sync_feed() {
             }
         }
 
-        // Rakennetaan lopullinen excerpt: tallennetaan vain raaka päivämäärä ilman kielikohtaista labelia
-        $desc_final = $endDateTime;
+        // Rakennetaan lopullinen excerpt: käytetään laura:enddate jos saatavilla
+        if (!empty($enddate)) {
+            // Muotoile: "2026-04-30 23:59:00" → "30.04.2026 23:59"
+            $dt = DateTime::createFromFormat('Y-m-d H:i:s', $enddate);
+            if ($dt) {
+                $desc_final = $dt->format('d.m.Y H:i');
+            } else {
+                $desc_final = $endDateTime;
+            }
+        } else {
+            $desc_final = $endDateTime;
+        }
 
         // -- Onko postaus jo olemassa? --
         if (isset($existing_posts[$link])) {
@@ -150,7 +217,13 @@ function map_sync_feed() {
                 $updated[] = $post_id;
             }
 
-            // EI enää muutospohjaisia lokimerkintöjä (title/excerpt) — pidetään loki siistinä
+            // Päivitä Laura-kentät aina
+            update_post_meta($post_id, 'job_country', $country_code);
+            update_post_meta($post_id, 'job_city', $city);
+            update_post_meta($post_id, 'job_type', $jobtype);
+            update_post_meta($post_id, 'job_worktime', $worktime);
+            update_post_meta($post_id, 'job_category', $category);
+            update_post_meta($post_id, 'job_form_url', $form_url);
 
         } else {
             // -- Luodaan uusi CPT-postaus --
@@ -163,9 +236,20 @@ function map_sync_feed() {
             ));
             if (!is_wp_error($new_post_id)) {
                 update_post_meta($new_post_id, 'original_rss_link', $link);
+                update_post_meta($new_post_id, 'job_country', $country_code);
+                update_post_meta($new_post_id, 'job_city', $city);
+                update_post_meta($new_post_id, 'job_type', $jobtype);
+                update_post_meta($new_post_id, 'job_worktime', $worktime);
+                update_post_meta($new_post_id, 'job_category', $category);
+                update_post_meta($new_post_id, 'job_form_url', $form_url);
                 $added[] = $new_post_id;
             }
         }
+    }
+
+    // Tallenna avoin hakemus -URL optionina
+    if (!empty($open_application_urls)) {
+        update_option('my_agg_open_application_url', $open_application_urls[0]);
     }
 
     // 6. Poistetaan CPT-postaukset, joita ei enää ole syötteessä

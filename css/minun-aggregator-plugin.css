@@ -26,3 +26,274 @@
     font-weight: 300; 
     margin-top: 5px;
 }
+
+/* === Maakohtainen listaus === */
+
+.map-jobs-by-country {
+    --map-primary: #2563eb;
+    --map-primary-hover: #1d4ed8;
+    --map-border: #e5e7eb;
+    --map-bg-card: #ffffff;
+    --map-bg-empty: #f9fafb;
+    --map-bg-cta: linear-gradient(135deg, #1e3a5f 0%, #2563eb 100%);
+    --map-text: #1f2937;
+    --map-text-muted: #6b7280;
+    --map-radius: 12px;
+    --map-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    --map-shadow-hover: 0 10px 25px rgba(0,0,0,0.12);
+    max-width: 900px;
+    margin: 0 auto;
+    font-family: inherit;
+}
+
+/* Maaryhmä-osio */
+.map-country-section {
+    margin-bottom: 2.5rem;
+}
+
+.map-country-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 0.75rem;
+    border-bottom: 2px solid var(--map-border);
+    margin-bottom: 1rem;
+}
+
+.map-country-title {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: var(--map-text);
+    margin: 0;
+    padding: 0;
+}
+
+.map-country-flag {
+    font-size: 1.5rem;
+}
+
+.map-country-count {
+    font-size: 0.85rem;
+    color: var(--map-text-muted);
+    font-weight: 500;
+    background: var(--map-bg-empty);
+    padding: 0.25rem 0.75rem;
+    border-radius: 999px;
+}
+
+.map-country-empty {
+    color: var(--map-text-muted);
+    font-style: italic;
+    padding: 1rem 0;
+    margin: 0;
+}
+
+/* Työpaikkakortit */
+.map-jobs-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.map-job-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--map-bg-card);
+    border: 1px solid var(--map-border);
+    border-radius: var(--map-radius);
+    padding: 1.25rem 1.5rem;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    box-shadow: var(--map-shadow);
+}
+
+.map-job-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--map-shadow-hover);
+    border-color: var(--map-primary);
+}
+
+.map-job-card__content {
+    flex: 1;
+    min-width: 0;
+}
+
+.map-job-card__title {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--map-text);
+    margin: 0 0 0.4rem 0;
+    padding: 0;
+}
+
+.map-job-card__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-bottom: 0.5rem;
+}
+
+.map-job-card__deadline {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-size: 0.85rem;
+    color: var(--map-text-muted);
+}
+
+.map-job-card__meta-icon {
+    font-size: 0.85rem;
+}
+
+.map-job-card__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+}
+
+.map-job-card__tag {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--map-primary);
+    background: rgba(37, 99, 235, 0.08);
+    padding: 0.2rem 0.6rem;
+    border-radius: 999px;
+}
+
+.map-job-card__action {
+    flex-shrink: 0;
+    margin-left: 1.5rem;
+}
+
+.map-job-card__apply-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.6rem 1.2rem;
+    background: var(--map-primary);
+    color: #fff !important;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-decoration: none !important;
+    transition: background 0.2s ease, transform 0.15s ease;
+    white-space: nowrap;
+}
+
+.map-job-card__apply-btn:hover {
+    background: var(--map-primary-hover);
+    transform: scale(1.03);
+    color: #fff !important;
+    text-decoration: none !important;
+}
+
+.map-job-card__arrow {
+    transition: transform 0.2s ease;
+}
+
+.map-job-card__apply-btn:hover .map-job-card__arrow {
+    transform: translateX(3px);
+}
+
+/* CTA-banneri */
+.map-cta-banner {
+    margin-top: 3rem;
+    border-radius: var(--map-radius);
+    background: var(--map-bg-cta);
+    padding: 2.5rem 2rem;
+    text-align: center;
+}
+
+.map-cta-banner__content {
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.map-cta-banner__icon {
+    font-size: 2.5rem;
+    margin-bottom: 0.75rem;
+}
+
+.map-cta-banner__title {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin: 0 0 0.5rem 0;
+    padding: 0;
+}
+
+.map-cta-banner__text {
+    font-size: 0.95rem;
+    color: rgba(255, 255, 255, 0.85);
+    margin: 0 0 1.5rem 0;
+    line-height: 1.5;
+}
+
+.map-cta-banner__button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.85rem 2rem;
+    background: #ffffff;
+    color: #1e3a5f !important;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 700;
+    text-decoration: none !important;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+
+.map-cta-banner__button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+    color: #1e3a5f !important;
+    text-decoration: none !important;
+}
+
+.map-cta-banner__arrow {
+    transition: transform 0.2s ease;
+}
+
+.map-cta-banner__button:hover .map-cta-banner__arrow {
+    transform: translateX(4px);
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+    .map-job-card {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .map-job-card__action {
+        margin-left: 0;
+        margin-top: 1rem;
+    }
+
+    .map-job-card__apply-btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .map-country-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.3rem;
+    }
+
+    .map-cta-banner {
+        padding: 2rem 1.25rem;
+    }
+}
+
+/* Focus-tilat saavutettavuutta varten */
+.map-job-card__apply-btn:focus-visible,
+.map-cta-banner__button:focus-visible {
+    outline: 3px solid #60a5fa;
+    outline-offset: 2px;
+}

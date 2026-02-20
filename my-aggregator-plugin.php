@@ -2,7 +2,7 @@
 /**
  * Plugin Name: My Aggregator Plugin
  * Description: RSS-syötteen synkronointi ja työpaikkojen hallinta. Sisältää REST API:n, Gutenberg-blokin, Schema.org-merkinnät ja WP-CLI-tuen.
- * Version: 3.0.0
+ * Version: 3.1.0
  * Author: Arto Huhta
  * Text Domain: my-aggregator-plugin
  * Requires at least: 5.8
@@ -126,8 +126,8 @@ if ( ! function_exists( 'map_is_builder_request' ) ) {
  * Lisää tänne lyhytkoodit, joita lisäosa käyttää listauksen näyttämiseen.
  */
 function map_target_shortcodes() {
-    // Skannauksen perusteella lisäosa käyttää tagia 'my_jobs_list'
-    return array( 'my_jobs_list' );
+    // Skannauksen perusteella lisäosa käyttää tageja 'my_jobs_list' ja 'my_jobs_by_country'
+    return array( 'my_jobs_list', 'my_jobs_by_country' );
 }
 
 /**
