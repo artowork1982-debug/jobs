@@ -1,10 +1,12 @@
 <?php
 /**
  * Plugin Name: My Aggregator Plugin
- * Description: RSS-syötteen synkronointi ja työpaikkojen hallinta.
- * Version: 2.0.0
+ * Description: RSS-syötteen synkronointi ja työpaikkojen hallinta. Sisältää REST API:n, Gutenberg-blokin, Schema.org-merkinnät ja WP-CLI-tuen.
+ * Version: 3.0.0
  * Author: Arto Huhta
  * Text Domain: my-aggregator-plugin
+ * Requires at least: 5.8
+ * Requires PHP: 7.4
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -16,6 +18,14 @@ require_once plugin_dir_path( __FILE__ ) . 'includes/admin-settings.php';
 require_once plugin_dir_path( __FILE__ ) . 'includes/cpt-and-cron.php';
 require_once plugin_dir_path( __FILE__ ) . 'includes/sync-functions.php';
 require_once plugin_dir_path( __FILE__ ) . 'includes/shortcodes.php';
+require_once plugin_dir_path( __FILE__ ) . 'includes/rest-api.php';
+require_once plugin_dir_path( __FILE__ ) . 'includes/gutenberg-block.php';
+require_once plugin_dir_path( __FILE__ ) . 'includes/schema-markup.php';
+require_once plugin_dir_path( __FILE__ ) . 'includes/security-improvements.php';
+require_once plugin_dir_path( __FILE__ ) . 'includes/health-check.php';
+if ( defined( 'WP_CLI' ) && WP_CLI ) {
+    require_once plugin_dir_path( __FILE__ ) . 'includes/wp-cli.php';
+}
 
 // === Aktivointi / deaktivointi -hookit ===
 // Huom! On tärkeää, että nämä hookit ovat pluginin pääkooditiedostossa
