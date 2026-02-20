@@ -16,7 +16,7 @@ function map_sync_feed() {
     // Jos syöte-URL puuttuu asetuksista, ei tehdä mitään
     if (empty($feed_url)) {
         // Päivitä “viimeisin synkka” -tilastot tyhjänäkin
-        update_option('my_agg_last_sync', current_time('timestamp'));
+        update_option('my_agg_last_sync', time());
         update_option('my_agg_last_sync_stats', array(
             'time'    => current_time('mysql'),
             'added'   => 0,
@@ -35,7 +35,7 @@ function map_sync_feed() {
         $error_msg = $feed->get_error_message();
 
         // Päivitä tilastot (0/0/0, mutta virhe talteen logiin näkyvyyden vuoksi)
-        update_option('my_agg_last_sync', current_time('timestamp'));
+        update_option('my_agg_last_sync', time());
         update_option('my_agg_last_sync_stats', array(
             'time'    => current_time('mysql'),
             'added'   => 0,
@@ -97,13 +97,6 @@ function map_sync_feed() {
 
         $current_feed_links[] = $link;
 
-        // POLYLANG
-        if (function_exists('pll_current_language')) {
-            $lang_code = pll_current_language();
-        } else {
-            $lang_code = 'fi';
-        }
-
         // (A) Poista valmiit "Hakuaika päättyy:" / "Application ends:"
         $desc = str_ireplace('Application ends:', '', $desc);
         $desc = str_ireplace('Hakuaika päättyy:', '', $desc);
@@ -133,30 +126,8 @@ function map_sync_feed() {
             }
         }
 
-        // Kielikohtainen label
-        $end_label = 'Application ends';
-        switch ($lang_code) {
-            case 'fi':
-                $end_label = 'Hakuaika päättyy';
-                break;
-            case 'en':
-                $end_label = 'Application ends';
-                break;
-            case 'sv':
-                $end_label = 'Ansökan slutar';
-                break;
-            case 'it':
-                $end_label = 'L\'applicazione termina';
-                break;
-            default:
-                $end_label = 'Application ends';
-        }
-
-        // Rakennetaan lopullinen excerpt
-        $desc_final = '';
-        if (!empty($endDateTime)) {
-            $desc_final = $end_label . ': ' . $endDateTime;
-        }
+        // Rakennetaan lopullinen excerpt: tallennetaan vain raaka päivämäärä ilman kielikohtaista labelia
+        $desc_final = $endDateTime;
 
         // -- Onko postaus jo olemassa? --
         if (isset($existing_posts[$link])) {
@@ -206,7 +177,7 @@ function map_sync_feed() {
     }
 
     // Päivitä tilastot (aina)
-    update_option('my_agg_last_sync', current_time('timestamp'));
+    update_option('my_agg_last_sync', time());
     update_option('my_agg_last_sync_stats', array(
         'time'    => current_time('mysql'),
         'added'   => count($added),

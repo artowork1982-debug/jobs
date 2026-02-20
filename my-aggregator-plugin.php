@@ -129,7 +129,11 @@ function map_jobs_cache_key( $tag, $atts ) {
         ksort( $atts );
     }
     $bump = (int) get_option( 'my_agg_cache_bump', 0 );
-    return 'map_jobs_html_' . md5( $tag . '|' . wp_json_encode( $atts ) . '|' . $bump );
+    $lang = '';
+    if ( function_exists( 'pll_current_language' ) ) {
+        $lang = pll_current_language() ?: 'fi';
+    }
+    return 'map_jobs_html_' . md5( $tag . '|' . wp_json_encode( $atts ) . '|' . $bump . '|' . $lang );
 }
 
 /**
@@ -145,7 +149,7 @@ function map_prevent_heavy_shortcodes_in_builder( $return, $tag, $atts, $m ) {
 
     // Builder: näytä kevyt esikatselu
     if ( function_exists( 'map_is_builder_request' ) && map_is_builder_request() ) {
-        return '<div class="my-job-list my-job-list--placeholder" style="opacity:.7;">Avoimet työpaikat – esikatselu. Julkaisussa listaus näkyy normaalisti.</div>';
+        return '<div class="my-job-list my-job-list--placeholder" style="opacity:.7;">' . esc_html__( 'Avoimet työpaikat – esikatselu. Julkaisussa listaus näkyy normaalisti.', 'my-aggregator-plugin' ) . '</div>';
     }
 
     // Julkinen puoli: kokeile välimuistia ennen varsinaista renderöintiä
