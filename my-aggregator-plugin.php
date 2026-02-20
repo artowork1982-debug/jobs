@@ -2,7 +2,7 @@
 /**
  * Plugin Name: My Aggregator Plugin
  * Description: RSS-syötteen synkronointi ja työpaikkojen hallinta.
- * Version: 1.3.1
+ * Version: 2.0.0
  * Author: Arto Huhta
  * Text Domain: my-aggregator-plugin
  */
