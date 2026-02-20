@@ -27,7 +27,7 @@
     margin-top: 5px;
 }
 
-/* === Maakohtainen listaus – Moderni dual-theme === */
+/* === Maakohtainen listaus – Moderni dual-theme (WCAG AA/AAA) === */
 
 /* ── Perusmuuttujat ── */
 .map-jobs-by-country {
@@ -41,25 +41,42 @@
 
 /* ── TUMMA TEEMA ── */
 .map-theme-dark {
-    --map-text: #ffffff;
-    --map-text-muted: rgba(255, 255, 255, 0.55);
-    --map-border: rgba(255, 255, 255, 0.10);
-    --map-bg-card: rgba(255, 255, 255, 0.05);
-    --map-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
-    --map-shadow-hover: 0 8px 24px rgba(0, 0, 0, 0.5);
+    /* Ympäröivä tausta on musta/tumma (teemasta) */
+    --map-heading-color: #ffffff;
+    --map-heading-muted: rgba(255, 255, 255, 0.70);
+    --map-section-border: rgba(255, 255, 255, 0.15);
+
+    /* Kortit – AINA valkoisia saavutettavuuden vuoksi */
+    --map-card-bg: #ffffff;
+    --map-card-border: rgba(0, 0, 0, 0.08);
+    --map-card-text: #1a1a1a;
+    --map-card-muted: #6b7280;
+    --map-card-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+    --map-card-shadow-hover: 0 8px 24px rgba(0, 0, 0, 0.35);
+    --map-card-hover-border: var(--map-brand);
+
+    /* Tagit – tumma teksti vaalealla pohjalla (kortin sisällä) */
+    --map-tag-color: #374151;
+    --map-tag-bg: #f3f4f6;
+    --map-tag-border: #e5e7eb;
+
+    /* Hae paikkaa -nappi */
     --map-btn-bg: var(--map-brand);
     --map-btn-text: #000000;
     --map-btn-hover-bg: var(--map-brand-hover);
-    --map-tag-color: var(--map-brand);
-    --map-tag-bg: rgba(254, 224, 0, 0.10);
-    --map-tag-border: rgba(254, 224, 0, 0.20);
+
+    /* Country count badge */
     --map-count-color: var(--map-brand);
-    --map-count-bg: rgba(254, 224, 0, 0.08);
-    --map-count-border: rgba(254, 224, 0, 0.18);
-    --map-hover-border: var(--map-brand);
+    --map-count-bg: rgba(254, 224, 0, 0.10);
+    --map-count-border: rgba(254, 224, 0, 0.25);
+
+    /* Tyhjän maan teksti */
+    --map-empty-color: rgba(255, 255, 255, 0.70);
+
+    /* CTA-banneri – vaalea pohja tummalla teemalla */
     --map-cta-bg: linear-gradient(135deg, #fafafa 0%, #f0f0f0 100%);
     --map-cta-text: #1a1a1a;
-    --map-cta-muted: #444444;
+    --map-cta-muted: #4b5563;
     --map-cta-btn-bg: #1a1a1a;
     --map-cta-btn-text: #ffffff;
     --map-cta-btn-hover-bg: #333333;
@@ -67,22 +84,39 @@
 
 /* ── VAALEA TEEMA ── */
 .map-theme-light {
-    --map-text: #1a1a1a;
-    --map-text-muted: #6b7280;
-    --map-border: #e5e7eb;
-    --map-bg-card: #ffffff;
-    --map-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
-    --map-shadow-hover: 0 8px 24px rgba(0, 0, 0, 0.12);
-    --map-btn-bg: #1a1a1a;
-    --map-btn-text: #ffffff;
-    --map-btn-hover-bg: #333333;
+    /* Ympäröivä tausta on valkoinen/vaalea (teemasta) */
+    --map-heading-color: #1a1a1a;
+    --map-heading-muted: #6b7280;
+    --map-section-border: #e5e7eb;
+
+    /* Kortit – AINA valkoisia, samat kuin tummassa */
+    --map-card-bg: #ffffff;
+    --map-card-border: #e5e7eb;
+    --map-card-text: #1a1a1a;
+    --map-card-muted: #6b7280;
+    --map-card-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+    --map-card-shadow-hover: 0 8px 24px rgba(0, 0, 0, 0.12);
+    --map-card-hover-border: var(--map-brand);
+
+    /* Tagit – samat kuin tummassa */
     --map-tag-color: #374151;
     --map-tag-bg: #f3f4f6;
     --map-tag-border: #e5e7eb;
+
+    /* Hae paikkaa -nappi – musta vaalealla teemalla */
+    --map-btn-bg: #1a1a1a;
+    --map-btn-text: #ffffff;
+    --map-btn-hover-bg: #333333;
+
+    /* Country count badge */
     --map-count-color: #374151;
     --map-count-bg: #f3f4f6;
     --map-count-border: #e5e7eb;
-    --map-hover-border: var(--map-brand);
+
+    /* Tyhjän maan teksti */
+    --map-empty-color: #6b7280;
+
+    /* CTA-banneri – tumma pohja vaalealla teemalla */
     --map-cta-bg: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
     --map-cta-text: #ffffff;
     --map-cta-muted: rgba(255, 255, 255, 0.75);
@@ -101,7 +135,7 @@
     align-items: center;
     justify-content: space-between;
     padding-bottom: 0.75rem;
-    border-bottom: 2px solid var(--map-border);
+    border-bottom: 2px solid var(--map-section-border);
     margin-bottom: 1rem;
 }
 
@@ -111,7 +145,7 @@
     gap: 0.5rem;
     font-size: 1.35rem;
     font-weight: 700;
-    color: var(--map-text) !important;
+    color: var(--map-heading-color) !important;
     margin: 0;
     padding: 0;
 }
@@ -143,13 +177,13 @@
 }
 
 .map-country-empty {
-    color: var(--map-text-muted);
+    color: var(--map-empty-color);
     font-style: italic;
     padding: 1rem 0;
     margin: 0;
 }
 
-/* ── Työpaikkakortit ── */
+/* ── Työpaikkakortit (valkoiset molemmissa teemoissa) ── */
 .map-jobs-grid {
     display: flex;
     flex-direction: column;
@@ -160,18 +194,18 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background: var(--map-bg-card);
-    border: 1px solid var(--map-border);
+    background: var(--map-card-bg);
+    border: 1px solid var(--map-card-border);
     border-radius: var(--map-radius);
     padding: 1.25rem 1.5rem;
     transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
-    box-shadow: var(--map-shadow);
+    box-shadow: var(--map-card-shadow);
 }
 
 .map-job-card:hover {
     transform: translateY(-2px);
-    box-shadow: var(--map-shadow-hover);
-    border-color: var(--map-hover-border);
+    box-shadow: var(--map-card-shadow-hover);
+    border-color: var(--map-card-hover-border);
 }
 
 .map-job-card__content {
@@ -182,7 +216,7 @@
 .map-job-card__title {
     font-size: 1.05rem;
     font-weight: 600;
-    color: var(--map-text);
+    color: var(--map-card-text);
     margin: 0 0 0.4rem 0;
     padding: 0;
 }
@@ -199,7 +233,7 @@
     align-items: center;
     gap: 0.3rem;
     font-size: 0.85rem;
-    color: var(--map-text-muted);
+    color: var(--map-card-muted);
 }
 
 .map-job-card__meta-icon {
