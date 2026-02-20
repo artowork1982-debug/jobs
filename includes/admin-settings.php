@@ -241,6 +241,23 @@ function map_render_settings_page() {
         <?php else: ?>
             <p>Ei tuontilokeja saatavilla.</p>
         <?php endif; ?>
+
+        <h2>Lyhytkoodit</h2>
+        <table class="widefat">
+            <thead>
+                <tr><th>Lyhytkoodi</th><th>Kuvaus</th></tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>[my_jobs_list]</code></td>
+                    <td>Peruslistaus kaikista avoimista työpaikoista.</td>
+                </tr>
+                <tr>
+                    <td><code>[my_jobs_by_country]</code></td>
+                    <td>Maakohtainen ryhmittely (Suomi, Ruotsi, Kreikka, Italia) moderneilla korteilla + avoin hakemus -banneri lopussa.</td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 
     <style>

@@ -29,6 +29,10 @@ function map_register_rest_routes() {
                 'default'           => '',
                 'sanitize_callback' => 'sanitize_text_field',
             ),
+            'country'  => array(
+                'default'           => '',
+                'sanitize_callback' => 'sanitize_text_field',
+            ),
         ),
     ) );
 }
@@ -45,6 +49,7 @@ function map_rest_get_jobs( WP_REST_Request $request ) {
     $per_page = $request->get_param( 'per_page' );
     $search   = $request->get_param( 'search' );
     $lang     = $request->get_param( 'lang' );
+    $country  = $request->get_param( 'country' );
 
     // Rajoitetaan per_page järkeväksi
     $per_page = min( max( 1, $per_page ), 100 );
@@ -67,6 +72,19 @@ function map_rest_get_jobs( WP_REST_Request $request ) {
         $query_args['lang'] = $lang;
     }
 
+    // Maasuodatus
+    if ( ! empty( $country ) ) {
+        $country_meta = array(
+            'key'   => 'job_country',
+            'value' => $country,
+        );
+        if ( isset( $query_args['meta_query'] ) ) {
+            $query_args['meta_query'][] = $country_meta;
+        } else {
+            $query_args['meta_query'] = array( $country_meta );
+        }
+    }
+
     $query = new WP_Query( $query_args );
     $jobs  = array();
 
@@ -80,6 +98,11 @@ function map_rest_get_jobs( WP_REST_Request $request ) {
                 'excerpt'          => get_the_excerpt(),
                 'original_rss_link' => get_post_meta( $post_id, 'original_rss_link', true ),
                 'date'             => get_the_date( 'c' ),
+                'country'          => get_post_meta( $post_id, 'job_country', true ),
+                'city'             => get_post_meta( $post_id, 'job_city', true ),
+                'job_type'         => get_post_meta( $post_id, 'job_type', true ),
+                'worktime'         => get_post_meta( $post_id, 'job_worktime', true ),
+                'form_url'         => get_post_meta( $post_id, 'job_form_url', true ),
             );
         }
         wp_reset_postdata();
