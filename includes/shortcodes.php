@@ -235,11 +235,13 @@ function map_jobs_by_country_shortcode($atts) {
 
         $job_count = $query->found_posts;
 
-        if ($job_count > 0) {
-            $output .= '<section class="map-country-section" data-country="' . esc_attr($code) . '">';
-        } else {
-            $output .= '<section class="map-country-section map-country-section--empty" data-country="' . esc_attr($code) . '">';
+        // Ohita maat joissa ei ole avoimia työpaikkoja
+        if ($job_count === 0) {
+            wp_reset_postdata();
+            continue;
         }
+
+        $output .= '<section class="map-country-section" data-country="' . esc_attr($code) . '">';
 
         $output .= '<div class="map-country-header">';
         $output .= '<h2 class="map-country-title">';
@@ -249,8 +251,7 @@ function map_jobs_by_country_shortcode($atts) {
         $output .= '<span class="map-country-count">' . esc_html($job_count . ' ' . $t['open_positions']) . '</span>';
         $output .= '</div>';
 
-        if ($job_count > 0) {
-            $output .= '<div class="map-jobs-grid">';
+        $output .= '<div class="map-jobs-grid">';
             while ($query->have_posts()) {
                 $query->the_post();
                 $post_id  = get_the_ID();
@@ -300,9 +301,6 @@ function map_jobs_by_country_shortcode($atts) {
                 $output .= '</article>';
             }
             $output .= '</div>'; // map-jobs-grid
-        } else {
-            $output .= '<p class="map-country-empty">' . esc_html($t['no_jobs']) . '</p>';
-        }
 
         $output .= '</section>';
         wp_reset_postdata();
