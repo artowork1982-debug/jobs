@@ -27,27 +27,71 @@
     margin-top: 5px;
 }
 
-/* === Maakohtainen listaus === */
+/* === Maakohtainen listaus – Moderni dual-theme === */
 
+/* ── Perusmuuttujat ── */
 .map-jobs-by-country {
-    /* Tapojärvi brändivärit – tumma teema */
-    --map-primary: #FEE000;
-    --map-primary-hover: #FEC300;
-    --map-border: rgba(255, 255, 255, 0.12);
-    --map-bg-card: rgba(255, 255, 255, 0.06);
-    --map-bg-empty: rgba(255, 255, 255, 0.04);
-    --map-bg-cta: linear-gradient(135deg, #fafafa 0%, #f3f4f6 100%);
-    --map-text: #ffffff;
-    --map-text-muted: rgba(255, 255, 255, 0.6);
+    --map-brand: #FEE000;
+    --map-brand-hover: #FEC300;
     --map-radius: 12px;
-    --map-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
-    --map-shadow-hover: 0 10px 25px rgba(0, 0, 0, 0.4);
     max-width: 900px;
     margin: 0 auto;
     font-family: inherit;
 }
 
-/* Maaryhmä-osio */
+/* ── TUMMA TEEMA ── */
+.map-theme-dark {
+    --map-text: #ffffff;
+    --map-text-muted: rgba(255, 255, 255, 0.55);
+    --map-border: rgba(255, 255, 255, 0.10);
+    --map-bg-card: rgba(255, 255, 255, 0.05);
+    --map-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+    --map-shadow-hover: 0 8px 24px rgba(0, 0, 0, 0.5);
+    --map-btn-bg: var(--map-brand);
+    --map-btn-text: #000000;
+    --map-btn-hover-bg: var(--map-brand-hover);
+    --map-tag-color: var(--map-brand);
+    --map-tag-bg: rgba(254, 224, 0, 0.10);
+    --map-tag-border: rgba(254, 224, 0, 0.20);
+    --map-count-color: var(--map-brand);
+    --map-count-bg: rgba(254, 224, 0, 0.08);
+    --map-count-border: rgba(254, 224, 0, 0.18);
+    --map-hover-border: var(--map-brand);
+    --map-cta-bg: linear-gradient(135deg, #fafafa 0%, #f0f0f0 100%);
+    --map-cta-text: #1a1a1a;
+    --map-cta-muted: #444444;
+    --map-cta-btn-bg: #1a1a1a;
+    --map-cta-btn-text: #ffffff;
+    --map-cta-btn-hover-bg: #333333;
+}
+
+/* ── VAALEA TEEMA ── */
+.map-theme-light {
+    --map-text: #1a1a1a;
+    --map-text-muted: #6b7280;
+    --map-border: #e5e7eb;
+    --map-bg-card: #ffffff;
+    --map-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+    --map-shadow-hover: 0 8px 24px rgba(0, 0, 0, 0.12);
+    --map-btn-bg: #1a1a1a;
+    --map-btn-text: #ffffff;
+    --map-btn-hover-bg: #333333;
+    --map-tag-color: #374151;
+    --map-tag-bg: #f3f4f6;
+    --map-tag-border: #e5e7eb;
+    --map-count-color: #374151;
+    --map-count-bg: #f3f4f6;
+    --map-count-border: #e5e7eb;
+    --map-hover-border: var(--map-brand);
+    --map-cta-bg: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+    --map-cta-text: #ffffff;
+    --map-cta-muted: rgba(255, 255, 255, 0.75);
+    --map-cta-btn-bg: var(--map-brand);
+    --map-cta-btn-text: #000000;
+    --map-cta-btn-hover-bg: var(--map-brand-hover);
+}
+
+/* ── Maaryhmä-osio ── */
 .map-country-section {
     margin-bottom: 2.5rem;
 }
@@ -67,7 +111,7 @@
     gap: 0.5rem;
     font-size: 1.35rem;
     font-weight: 700;
-    color: #ffffff !important;
+    color: var(--map-text) !important;
     margin: 0;
     padding: 0;
 }
@@ -85,28 +129,27 @@
     width: 28px;
     height: 28px;
     object-fit: contain;
-    vertical-align: middle;
     display: block;
 }
 
 .map-country-count {
     font-size: 0.85rem;
-    color: var(--map-primary);
+    color: var(--map-count-color);
     font-weight: 500;
-    background: rgba(254, 224, 0, 0.1);
+    background: var(--map-count-bg);
+    border: 1px solid var(--map-count-border);
     padding: 0.25rem 0.75rem;
     border-radius: 999px;
-    border: 1px solid rgba(254, 224, 0, 0.2);
 }
 
 .map-country-empty {
-    color: #ffffff;
+    color: var(--map-text-muted);
     font-style: italic;
     padding: 1rem 0;
     margin: 0;
 }
 
-/* Työpaikkakortit */
+/* ── Työpaikkakortit ── */
 .map-jobs-grid {
     display: flex;
     flex-direction: column;
@@ -128,7 +171,7 @@
 .map-job-card:hover {
     transform: translateY(-2px);
     box-shadow: var(--map-shadow-hover);
-    border-color: var(--map-primary);
+    border-color: var(--map-hover-border);
 }
 
 .map-job-card__content {
@@ -183,11 +226,11 @@
     display: inline-block;
     font-size: 0.75rem;
     font-weight: 500;
-    color: var(--map-primary);
-    background: rgba(254, 224, 0, 0.1);
+    color: var(--map-tag-color);
+    background: var(--map-tag-bg);
+    border: 1px solid var(--map-tag-border);
     padding: 0.2rem 0.6rem;
     border-radius: 999px;
-    border: 1px solid rgba(254, 224, 0, 0.2);
 }
 
 .map-job-card__action {
@@ -200,8 +243,8 @@
     align-items: center;
     gap: 0.4rem;
     padding: 0.6rem 1.2rem;
-    background: var(--map-primary);
-    color: #000000 !important;
+    background: var(--map-btn-bg);
+    color: var(--map-btn-text) !important;
     border-radius: 8px;
     font-size: 0.85rem;
     font-weight: 600;
@@ -211,9 +254,9 @@
 }
 
 .map-job-card__apply-btn:hover {
-    background: var(--map-primary-hover);
+    background: var(--map-btn-hover-bg);
     transform: scale(1.03);
-    color: #000000 !important;
+    color: var(--map-btn-text) !important;
     text-decoration: none !important;
 }
 
@@ -225,11 +268,11 @@
     transform: translateX(3px);
 }
 
-/* CTA-banneri */
+/* ── CTA-banneri ── */
 .map-cta-banner {
     margin-top: 3rem;
     border-radius: var(--map-radius);
-    background: var(--map-bg-cta);
+    background: var(--map-cta-bg);
     padding: 2.5rem 2rem;
     text-align: center;
 }
@@ -254,14 +297,14 @@
 .map-cta-banner__title {
     font-size: 1.4rem;
     font-weight: 700;
-    color: #000000;
+    color: var(--map-cta-text);
     margin: 0 0 0.5rem 0;
     padding: 0;
 }
 
 .map-cta-banner__text {
     font-size: 0.95rem;
-    color: #000000;
+    color: var(--map-cta-muted);
     margin: 0 0 1.5rem 0;
     line-height: 1.5;
 }
@@ -271,20 +314,21 @@
     align-items: center;
     gap: 0.5rem;
     padding: 0.85rem 2rem;
-    background: #000000;
-    color: #ffffff !important;
+    background: var(--map-cta-btn-bg);
+    color: var(--map-cta-btn-text) !important;
     border-radius: 8px;
     font-size: 1rem;
     font-weight: 700;
     text-decoration: none !important;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
 
 .map-cta-banner__button:hover {
+    background: var(--map-cta-btn-hover-bg);
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(0,0,0,0.25);
-    color: #ffffff !important;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+    color: var(--map-cta-btn-text) !important;
     text-decoration: none !important;
 }
 
@@ -296,7 +340,7 @@
     transform: translateX(4px);
 }
 
-/* Responsive */
+/* ── Responsive ── */
 @media (max-width: 640px) {
     .map-job-card {
         flex-direction: column;
@@ -324,9 +368,9 @@
     }
 }
 
-/* Focus-tilat saavutettavuutta varten */
+/* ── Focus-tilat saavutettavuutta varten ── */
 .map-job-card__apply-btn:focus-visible,
 .map-cta-banner__button:focus-visible {
-    outline: 3px solid var(--map-primary);
+    outline: 3px solid var(--map-brand);
     outline-offset: 2px;
 }
