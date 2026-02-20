@@ -210,6 +210,20 @@ function map_jobs_by_country_shortcode($atts) {
     );
     $t = isset($texts[$lang_code]) ? $texts[$lang_code] : $texts['en'];
 
+    // Käännökset RSS-syötteestä tuleville job_type ja job_worktime arvoille
+    // RSS antaa arvot aina suomeksi
+    $jobtype_translations = array(
+        'Vakituinen'    => array('fi' => 'Vakituinen',    'en' => 'Permanent',   'sv' => 'Tillsvidare',   'it' => 'Tempo indeterminato'),
+        'Määräaikainen' => array('fi' => 'Määräaikainen', 'en' => 'Fixed-term',  'sv' => 'Visstid',       'it' => 'Tempo determinato'),
+        'Kesätyö'       => array('fi' => 'Kesätyö',       'en' => 'Summer job',  'sv' => 'Sommarjobb',    'it' => 'Lavoro estivo'),
+        'Harjoittelu'   => array('fi' => 'Harjoittelu',   'en' => 'Internship',  'sv' => 'Praktik',       'it' => 'Stage'),
+    );
+
+    $worktime_translations = array(
+        'Kokoaikainen' => array('fi' => 'Kokoaikainen', 'en' => 'Full-time',  'sv' => 'Heltid',  'it' => 'Tempo pieno'),
+        'Osa-aikainen' => array('fi' => 'Osa-aikainen', 'en' => 'Part-time',  'sv' => 'Deltid',  'it' => 'Part-time'),
+    );
+
     // Shortcode attribuutit
     $args = shortcode_atts(array(
         'theme' => 'dark', // Oletus: tumma teema
@@ -280,10 +294,16 @@ function map_jobs_by_country_shortcode($atts) {
                 if (!empty($jobtype) || !empty($worktime)) {
                     $output .= '<div class="map-job-card__tags">';
                     if (!empty($jobtype)) {
-                        $output .= '<span class="map-job-card__tag">' . esc_html($jobtype) . '</span>';
+                        $translated_jobtype = isset($jobtype_translations[$jobtype][$lang_code])
+                            ? $jobtype_translations[$jobtype][$lang_code]
+                            : $jobtype;
+                        $output .= '<span class="map-job-card__tag">' . esc_html($translated_jobtype) . '</span>';
                     }
                     if (!empty($worktime)) {
-                        $output .= '<span class="map-job-card__tag">' . esc_html($worktime) . '</span>';
+                        $translated_worktime = isset($worktime_translations[$worktime][$lang_code])
+                            ? $worktime_translations[$worktime][$lang_code]
+                            : $worktime;
+                        $output .= '<span class="map-job-card__tag">' . esc_html($translated_worktime) . '</span>';
                     }
                     $output .= '</div>';
                 }
