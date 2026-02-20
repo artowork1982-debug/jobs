@@ -72,7 +72,20 @@
 }
 
 .map-country-flag {
-    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    flex-shrink: 0;
+}
+
+.map-country-flag__img {
+    width: 28px;
+    height: 28px;
+    object-fit: contain;
+    vertical-align: middle;
+    display: block;
 }
 
 .map-country-count {
@@ -145,7 +158,17 @@
 }
 
 .map-job-card__meta-icon {
-    font-size: 0.85rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 14px;
+    height: 14px;
+    flex-shrink: 0;
+}
+
+.map-job-card__meta-icon svg {
+    width: 14px;
+    height: 14px;
 }
 
 .map-job-card__tags {
@@ -214,8 +237,15 @@
 }
 
 .map-cta-banner__icon {
-    font-size: 2.5rem;
     margin-bottom: 0.75rem;
+}
+
+.map-cta-banner__icon-img {
+    width: 48px;
+    height: 48px;
+    object-fit: contain;
+    display: block;
+    margin: 0 auto;
 }
 
 .map-cta-banner__title {

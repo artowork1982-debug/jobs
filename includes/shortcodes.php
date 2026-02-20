@@ -163,10 +163,10 @@ function map_jobs_by_country_shortcode($atts) {
 
     // Maat kiinteässä järjestyksessä
     $countries = array(
-        'fi' => array('flag' => '🇫🇮', 'fi' => 'Suomi',  'en' => 'Finland', 'sv' => 'Finland',  'it' => 'Finlandia'),
-        'se' => array('flag' => '🇸🇪', 'fi' => 'Ruotsi', 'en' => 'Sweden',  'sv' => 'Sverige',  'it' => 'Svezia'),
-        'gr' => array('flag' => '🇬🇷', 'fi' => 'Kreikka','en' => 'Greece',  'sv' => 'Grekland', 'it' => 'Grecia'),
-        'it' => array('flag' => '🇮🇹', 'fi' => 'Italia', 'en' => 'Italy',   'sv' => 'Italien',  'it' => 'Italia'),
+        'fi' => array('flag' => 'https://tapojarvi.com/wp-content/uploads/2026/02/tapojarvi_icon_122-finnish-flag.svg',  'fi' => 'Suomi',  'en' => 'Finland', 'sv' => 'Finland',  'it' => 'Finlandia'),
+        'se' => array('flag' => 'https://tapojarvi.com/wp-content/uploads/2026/02/tapojarvi_icon_123-swedish-flag.svg',  'fi' => 'Ruotsi', 'en' => 'Sweden',  'sv' => 'Sverige',  'it' => 'Svezia'),
+        'gr' => array('flag' => 'https://tapojarvi.com/wp-content/uploads/2026/02/tapojarvi_icon_125-greek-flag.svg',    'fi' => 'Kreikka','en' => 'Greece',  'sv' => 'Grekland', 'it' => 'Grecia'),
+        'it' => array('flag' => 'https://tapojarvi.com/wp-content/uploads/2026/02/tapojarvi_icon_124-italian-flag.svg',  'fi' => 'Italia', 'en' => 'Italy',   'sv' => 'Italien',  'it' => 'Italia'),
     );
 
     // Monikieliset UI-tekstit
@@ -237,7 +237,7 @@ function map_jobs_by_country_shortcode($atts) {
 
         $output .= '<div class="map-country-header">';
         $output .= '<h2 class="map-country-title">';
-        $output .= '<span class="map-country-flag">' . esc_html($flag) . '</span>';
+        $output .= '<span class="map-country-flag"><img src="' . esc_url($flag) . '" alt="' . esc_attr($country_name) . '" class="map-country-flag__img"></span>';
         $output .= '<span class="map-country-name">' . esc_html($country_name) . '</span>';
         $output .= '</h2>';
         $output .= '<span class="map-country-count">' . esc_html($job_count . ' ' . $t['open_positions']) . '</span>';
@@ -264,7 +264,7 @@ function map_jobs_by_country_shortcode($atts) {
                 if (!empty($excerpt)) {
                     $output .= '<div class="map-job-card__meta">';
                     $output .= '<span class="map-job-card__deadline">';
-                    $output .= '<span class="map-job-card__meta-icon">🕐</span>';
+                    $output .= '<span class="map-job-card__meta-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></span>';
                     $output .= esc_html($t['end_label'] . ': ' . $excerpt);
                     $output .= '</span>';
                     $output .= '</div>';
@@ -307,7 +307,7 @@ function map_jobs_by_country_shortcode($atts) {
     if (!empty($cta_url)) {
         $output .= '<div class="map-cta-banner">';
         $output .= '<div class="map-cta-banner__content">';
-        $output .= '<div class="map-cta-banner__icon">💼</div>';
+        $output .= '<div class="map-cta-banner__icon"><img src="https://tapojarvi.com/wp-content/uploads/2026/02/tapojarvi_icon_118-yellow.svg" alt="" class="map-cta-banner__icon-img"></div>';
         $output .= '<h3 class="map-cta-banner__title">' . esc_html($t['cta_title']) . '</h3>';
         $output .= '<p class="map-cta-banner__text">' . esc_html($t['cta_text']) . '</p>';
         $output .= '<a href="' . esc_url($cta_url) . '" target="_blank" rel="noopener" class="map-cta-banner__button">';
